@@ -35,6 +35,6 @@ export const upload = [
     for (const product of request.products) {
       await addImageProcessingJob(request.id, product);
     }
-    res.status(201).json({ data: request.id });
+    res.status(201).json({ requestId: request.id });
   },
 ];
