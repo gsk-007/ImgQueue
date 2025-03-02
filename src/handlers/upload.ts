@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import multer, { Multer } from "multer";
 import { parseCsv } from "../modules/csv";
 import prisma from "../config/db";
+import { addImageProcessingJob } from "../jobs/imageProcessor";
 
 const uploadFile: Multer = multer({ dest: "uploads/" });
 
@@ -21,8 +22,19 @@ export const upload = [
           create: products,
         },
       },
+      include: {
+        products: {
+          select: {
+            id: true,
+            inputImageUrls: true,
+          },
+        },
+      },
     });
 
+    for (const product of request.products) {
+      await addImageProcessingJob(request.id, product);
+    }
     res.status(201).json({ data: request.id });
   },
 ];
