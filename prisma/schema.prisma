@@ -32,7 +32,7 @@ model Product {
   id                Int               @id @default(autoincrement())
   serialNumber      Int
   productName       String
-  inputImageURls    String[]
+  inputImageUrls    String[]
   outputImageUrls   String[]
   requestId         String
   processingRequest ProcessingRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)

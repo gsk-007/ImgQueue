@@ -128,9 +128,12 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-#Docker Volumes
-pgdata/  
-redisdata/ 
+# Docker Volumes
+pgdata/
+redisdata/
+
+# file upload
+uploads/
 
 # yarn v2
 .yarn/cache
