@@ -1,5 +1,6 @@
 import express from "express";
 import "express-async-errors";
+import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
 import { errorHandler, notFound } from "./middleware/errorMiddleware";
@@ -14,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/health-check", async (req, res, next) => {
   res.send("Service is Running");
 });
+
+app.use("/api", router);
 
 app.use(notFound);
 app.use(errorHandler);
