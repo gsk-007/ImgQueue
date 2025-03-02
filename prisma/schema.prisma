@@ -12,3 +12,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Status {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model ProcessingRequest {
+  id         String    @id @default(uuid())
+  status     Status    @default(PENDING)
+  webhookUrl String?
+  products   Product[]
+  createdAt  DateTime  @default(now())
+}
+
+model Product {
+  id                Int               @id @default(autoincrement())
+  serialNumber      Int
+  productName       String
+  inputImageURls    String[]
+  outputImageUrls   String[]
+  requestId         String
+  processingRequest ProcessingRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@unique([serialNumber, requestId])
+}
