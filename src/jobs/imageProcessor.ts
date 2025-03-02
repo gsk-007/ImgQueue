@@ -18,7 +18,10 @@ const processImage = async (imageUrl: string): Promise<string> => {
     const url = new URL(imageUrl);
     const pathname = url.pathname;
     const extension = path.extname(pathname);
-    const outputUrl = imageUrl.replace(extension, `-output${extension}`);
+    const outputUrl = imageUrl.replace(
+      extension,
+      `-output-${Date.now()}${extension}`
+    );
 
     // Save the processed image
     const outputPath = path.join("uploads", path.basename(outputUrl));
@@ -46,7 +49,7 @@ imageQueue.process(async (job) => {
 
   for (const url of product.inputImageUrls) {
     const processedImagePath = await processImage(url);
-    outputImageUrls.push(processedImagePath);
+    outputImageUrls.push(process.env.BASE_URL + "/" + processedImagePath);
   }
   // Update database with output URLs
   await prisma.product.update({
