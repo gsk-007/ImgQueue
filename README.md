@@ -11,9 +11,22 @@ This project sets up a **Node.js** application with **Prisma** ORM, connected to
 ├── 📦 prisma
 │   └── 📄 schema.prisma
 ├── 📦 src
+│   └── 📦 config
+│       └── 📄 db.ts
+│   └── 📦 handlers
+│       └── 📄 status.ts
+│       └── 📄 upload.ts
+│   └── 📦 jobs
+│       └── 📄 imageProcessor.ts
+│   └── 📦 middleware
+│       └── 📄 errorMiddleware.ts
+│   └── 📦 modules
+│       └── 📄 csv.ts
+│   └── 📦 queues
+│       └── 📄 imageQueue.ts
 │   └── 📄 index.ts
-├── 📦 dist
-│   └── 📄 index.js
+│   └── 📄 server.ts
+│   └── 📄 router.ts
 ├── 📄 docker-compose.dev.yml
 ├── 📄 Dockerfile (optional)
 ├── 📄 .env
@@ -34,9 +47,13 @@ This project sets up a **Node.js** application with **Prisma** ORM, connected to
 - **Docker & Docker Compose** — Containerization and orchestration
 - **ts-node-dev** — Hot-reloading for TypeScript
 - **Express** — Web framework for Node.js
-- **Joi** — Schema validation
 - **Morgan** — HTTP request logger
 - **dotenv** — Environment variable management
+- **axios** — API request
+- **bull** — Message Queue
+- **fast-csv** — convert from csv to json
+- **multer** — file upload
+- **sharp** — image processing
 
 ---
 
@@ -75,7 +92,7 @@ Add your database URLs to the **`.env`** file:
 ```plaintext
 DATABASE_URL=postgresql://postgres:password@localhost:5432/mydatabase
 REDIS_URL=redis://localhost:6379
-PORT=3000
+PORT=5000
 NODE_ENV=development
 ```
 
