@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "6a6d4ec9-d6e6-4f04-b5f5-960750400894",
+		"name": "image-processing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17278326"
+	},
+	"item": [
+		{
+			"name": "Upload File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://imgqueue.onrender.com/api/upload",
+					"protocol": "https",
+					"host": [
+						"imgqueue",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Status",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
