@@ -47,7 +47,7 @@ export const checkStatus = async (
   }
 
   if (updatedStatus !== "COMPLETED") {
-    return res.status(200).json({
+    res.status(200).json({
       status: updatedStatus,
       totalProducts,
       completedProducts,
