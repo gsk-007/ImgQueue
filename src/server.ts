@@ -4,6 +4,7 @@ import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
 import { errorHandler, notFound } from "./middleware/errorMiddleware";
+import path from "path";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/health-check", async (req, res, next) => {
   res.send("Service is Running");
 });
+
+app.use("/static", express.static(path.join(__dirname, "../public")));
 
 app.use("/api", router);
 
