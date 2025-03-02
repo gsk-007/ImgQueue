@@ -7,6 +7,7 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware";
 import path from "path";
 
 const app = express();
+app.disable("x-powered-by");
 
 app.use(cors());
 app.use(morgan("dev"));
