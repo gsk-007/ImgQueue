@@ -28,12 +28,20 @@ model ProcessingRequest {
   createdAt  DateTime  @default(now())
 }
 
+enum ProductStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
 model Product {
   id                Int               @id @default(autoincrement())
   serialNumber      Int
   productName       String
   inputImageUrls    String[]
   outputImageUrls   String[]
+  status            ProductStatus     @default(PENDING)
   requestId         String
   processingRequest ProcessingRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
 

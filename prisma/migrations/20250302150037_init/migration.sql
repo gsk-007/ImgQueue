@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('PENDING', 'PROCESSING', 'COMPLETED', 'FAILED');
 
+-- CreateEnum
+CREATE TYPE "ProductStatus" AS ENUM ('PENDING', 'PROCESSING', 'COMPLETED', 'FAILED');
+
 -- CreateTable
 CREATE TABLE "ProcessingRequest" (
     "id" TEXT NOT NULL,
@@ -16,8 +19,9 @@ CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "serialNumber" INTEGER NOT NULL,
     "productName" TEXT NOT NULL,
-    "inputImageURls" TEXT[],
+    "inputImageUrls" TEXT[],
     "outputImageUrls" TEXT[],
+    "status" "ProductStatus" NOT NULL DEFAULT 'PENDING',
     "requestId" TEXT NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
