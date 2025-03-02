@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import prisma from "../config/db";
 import { Parser } from "json2csv";
 
-export const checkStatus = async (req: Request, res: Response) => {
+export const checkStatus = async (
+  req: Request<{ requestId: string }>,
+  res: Response
+) => {
   const { requestId } = req.params;
 
   const request = await prisma.processingRequest.findUnique({
