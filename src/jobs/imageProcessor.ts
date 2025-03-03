@@ -8,6 +8,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const processImage = async (imageUrl: string): Promise<string> => {
   try {
+    // await delay(5000);
     // Download the image
     const response = await axios.get(imageUrl, {
       responseType: "arraybuffer",
@@ -59,8 +60,6 @@ imageQueue.process(async (job) => {
       outputImageUrls,
     },
   });
-
-  return outputImageUrls;
 });
 
 export const addImageProcessingJob = async (

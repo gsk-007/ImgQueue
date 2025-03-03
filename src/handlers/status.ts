@@ -55,6 +55,7 @@ export const checkStatus = async (
       completedProducts,
       pendingProducts,
     });
+    return;
   }
 
   // Generate CSV for completed requests
