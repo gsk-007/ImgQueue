@@ -10,9 +10,6 @@ export const checkStatus = async (
 
   const request = await prisma.processingRequest.findUnique({
     where: { id: requestId },
-    include: {
-      products: true,
-    },
   });
 
   if (!request) {
@@ -20,9 +17,14 @@ export const checkStatus = async (
     throw new Error("Request not found");
   }
 
+  const products = await prisma.product.findMany({
+    where: { requestId: request.id },
+    orderBy: { serialNumber: "asc" },
+  });
+
   // Count products
-  const totalProducts = request.products.length;
-  const completedProducts = request.products.filter(
+  const totalProducts = products.length;
+  const completedProducts = products.filter(
     (p) => p.status === "COMPLETED"
   ).length;
   const pendingProducts = totalProducts - completedProducts;
@@ -56,7 +58,7 @@ export const checkStatus = async (
   }
 
   // Generate CSV for completed requests
-  const csvData = request.products.map((product) => ({
+  const csvData = products.map((product) => ({
     "S. No.": product.serialNumber,
     "Product Name": product.productName,
     "Input Image Urls": product.inputImageUrls.join(", "),
