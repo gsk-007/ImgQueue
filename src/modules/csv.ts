@@ -1,4 +1,5 @@
 import * as csv from "fast-csv";
+import { BadRequestError } from "../errors/badRequestError";
 
 type Product = {
   serialNumber: number;
@@ -30,7 +31,7 @@ export const parseCsv = (file: Express.Multer.File): Promise<Product[]> => {
         ) {
           products.push({ serialNumber, productName, inputImageUrls });
         } else {
-          throw new Error(`Error in csv at Serial: ${serialNumber}`);
+          throw new BadRequestError(`Error in csv at Serial: ${serialNumber}`);
         }
       })
       .on("end", () => resolve(products))

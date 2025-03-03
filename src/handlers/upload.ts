@@ -3,6 +3,7 @@ import multer, { Multer } from "multer";
 import { parseCsv } from "../modules/csv";
 import prisma from "../config/db";
 import { addImageProcessingJob } from "../jobs/imageProcessor";
+import { BadRequestError } from "../errors/badRequestError";
 
 const uploadFile: Multer = multer({ dest: "uploads/" });
 
@@ -11,7 +12,7 @@ export const upload = [
   async (req: Request, res: Response) => {
     if (!req.file) {
       res.status(400);
-      throw new Error("CSV file is required.");
+      throw new BadRequestError("CSV file is required.");
     }
 
     const products = await parseCsv(req.file);

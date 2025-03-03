@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../config/db";
 import { Parser } from "json2csv";
+import { BadRequestError } from "../errors/badRequestError";
 
 export const checkStatus = async (
   req: Request<{ requestId: string }>,
@@ -14,7 +15,7 @@ export const checkStatus = async (
 
   if (!request) {
     res.status(404);
-    throw new Error("Request not found");
+    throw new BadRequestError("Request not found");
   }
 
   const products = await prisma.product.findMany({
